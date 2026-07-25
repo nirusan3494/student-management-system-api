@@ -1,4 +1,4 @@
-package com.niraj.education.student.entity;
+package com.niraj.education.exception;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     public EmailAlreadyExistsException(String message) {

@@ -1,5 +1,6 @@
-package com.niraj.education.student.entity;
+package com.niraj.education.student.repository;
 
+import com.niraj.education.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository

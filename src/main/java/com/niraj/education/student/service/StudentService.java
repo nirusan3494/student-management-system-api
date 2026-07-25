@@ -1,5 +1,8 @@
-package com.niraj.education.student.entity;
+package com.niraj.education.student.service;
 
+import com.niraj.education.exception.EmailAlreadyExistsException;
+import com.niraj.education.student.entity.Student;
+import com.niraj.education.student.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 @Service
