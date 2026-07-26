@@ -9,6 +9,4 @@ public interface StudentRepository
     Student findByEmail(String email);
 
     boolean existsByEmail(String email);
-
-
 }

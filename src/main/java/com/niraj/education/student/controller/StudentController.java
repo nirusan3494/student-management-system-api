@@ -3,12 +3,12 @@ package com.niraj.education.student.controller;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.service.StudentService;
 import jakarta.validation.Valid;
+import org.hibernate.internal.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -25,6 +25,18 @@ public class StudentController {
         Student savedStudent=studentService.registerStudent(student);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Student>> getAllStudents(){
+        List <Student> students=studentService.getAllStudents();
+        return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity <Student> getStudentById(@PathVariable Long id){
+        Student student=studentService.getStudentById(id);
+        return ResponseEntity.ok(student);
     }
 
 
