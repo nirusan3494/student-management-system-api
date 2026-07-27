@@ -43,5 +43,29 @@ public class StudentService {
                 );
     }
 
+    public void deleteStudentById(Long id){
+        studentRepository.findById(id)
+                .orElseThrow(
+                        () -> new StudentIDNotFoundException(
+                                "Student not found with id: " + id
+                        )
+                );
+
+        studentRepository.deleteById(id);
+    }
+
+
+    public Student updateStudentById(Long id, Student student){
+        Student existingStudent = studentRepository.findById(id)
+                .orElseThrow(
+                        () -> new StudentIDNotFoundException(
+                                "Student not found with id: " + id
+                        )
+                );
+        existingStudent.setName(student.getName());
+        existingStudent.setEmail(student.getEmail());
+         return studentRepository.save(existingStudent);
+
+    }
 
 }
