@@ -2,6 +2,8 @@ package com.niraj.education.student.service;
 
 import com.niraj.education.exception.EmailAlreadyExistsException;
 import com.niraj.education.exception.StudentIDNotFoundException;
+import com.niraj.education.student.dto.StudentRequestDto;
+import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
 import org.hibernate.internal.util.Optional;
@@ -19,7 +21,14 @@ public class StudentService {
     }
 
 
-    public Student registerStudent(Student student) {
+
+    public StudentResponseDto registerStudent(StudentRequestDto requestDto) {
+
+        Student student = new Student(
+                requestDto.getName(),
+                requestDto.getEmail()
+        );
+
 
         if (studentRepository.existsByEmail(student.getEmail())) {
             throw new EmailAlreadyExistsException(
@@ -27,7 +36,15 @@ public class StudentService {
             );
         }
 
-        return studentRepository.save(student);
+
+        Student savedStudent = studentRepository.save(student);
+
+
+        return new StudentResponseDto(
+                savedStudent.getId(),
+                savedStudent.getName(),
+                savedStudent.getEmail()
+        );
     }
 
     public List<Student> getAllStudents(){

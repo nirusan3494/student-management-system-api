@@ -1,5 +1,7 @@
 package com.niraj.education.student.controller;
 
+import com.niraj.education.student.dto.StudentRequestDto;
+import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.service.StudentService;
 import jakarta.validation.Valid;
@@ -21,10 +23,15 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> addStudent(@RequestBody @Valid Student student){
-        Student savedStudent=studentService.registerStudent(student);
+    public ResponseEntity<StudentResponseDto> addStudent(
+            @RequestBody @Valid StudentRequestDto requestDTO){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+        StudentResponseDto response =
+                studentService.registerStudent(requestDTO);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @GetMapping
