@@ -7,6 +7,8 @@ import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
 import org.hibernate.internal.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,9 +49,24 @@ public class StudentService {
         );
     }
 
-    public List<Student> getAllStudents(){
-        return studentRepository.findAll();
+
+
+
+    public Page<StudentResponseDto> getAllStudents(Pageable pageable){
+
+        Page<Student> students =
+                studentRepository.findAll(pageable);
+
+        return students.map(student ->
+                new StudentResponseDto(
+                        student.getId(),
+                        student.getName(),
+                        student.getEmail()
+                )
+        );
     }
+
+
     public Student getStudentById(Long id){
         return studentRepository
                 .findById(id)

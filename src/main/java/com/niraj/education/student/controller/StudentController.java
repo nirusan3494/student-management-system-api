@@ -3,9 +3,12 @@ package com.niraj.education.student.controller;
 import com.niraj.education.student.dto.StudentRequestDto;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
+import com.niraj.education.student.repository.StudentRepository;
 import com.niraj.education.student.service.StudentService;
 import jakarta.validation.Valid;
 import org.hibernate.internal.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +38,13 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents(){
-        List <Student> students=studentService.getAllStudents();
-        return ResponseEntity.ok(studentService.getAllStudents());
+    public ResponseEntity<Page<StudentResponseDto>> getAllStudents(Pageable pageable){
+
+        return ResponseEntity.ok(
+                studentService.getAllStudents(pageable)
+        );
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity <Student> getStudentById(@PathVariable Long id){
