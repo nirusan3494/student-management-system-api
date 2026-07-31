@@ -2,11 +2,12 @@ package com.niraj.education.student.service;
 
 import com.niraj.education.exception.EmailAlreadyExistsException;
 import com.niraj.education.exception.StudentIDNotFoundException;
+import com.niraj.education.exception.StudentNotFoundException;
 import com.niraj.education.student.dto.StudentRequestDto;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
-import org.hibernate.internal.util.Optional;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -82,7 +83,22 @@ public class StudentService {
         return response;
     }
 
+    public StudentResponseDto getStudentByNameAndEmail(String name, String email){
 
+        Student student = studentRepository
+                .findByNameAndEmail(name, email)
+                .orElseThrow(
+                        () -> new StudentNotFoundException(
+                                "Student not found"
+                        )
+                );
+
+        return new StudentResponseDto(
+                student.getId(),
+                student.getName(),
+                student.getEmail()
+        );
+    }
     public Student getStudentById(Long id){
         return studentRepository
                 .findById(id)

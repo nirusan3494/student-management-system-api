@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(StudentIDNotFoundException.class)
-    public ResponseEntity<ApiError>handleStudentIDNotFound(
+    public ResponseEntity<ApiError> handleStudentIDNotFound(
             StudentIDNotFoundException ex,
             HttpServletRequest request) {
 
@@ -66,5 +66,14 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(apiError);
+    }
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<String> handleStudentNotFound(
+            StudentNotFoundException exception) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exception.getMessage());
     }
 }
