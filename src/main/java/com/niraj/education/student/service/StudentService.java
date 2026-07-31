@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,6 +65,21 @@ public class StudentService {
                         student.getEmail()
                 )
         );
+    }
+
+
+    public List<StudentResponseDto> getStudentsByName(String name){
+        List<StudentResponseDto> response=new ArrayList<>();
+        List<Student> students=studentRepository.findByName(name);
+        for(Student student:students){
+            StudentResponseDto dto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            response.add(dto);
+        }
+        return response;
     }
 
 

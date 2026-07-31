@@ -45,6 +45,12 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<StudentResponseDto>> getStudentsByName(@RequestParam String name){
+        return ResponseEntity.ok(
+                studentService.getStudentsByName(name)
+        );
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity <Student> getStudentById(@PathVariable Long id){
