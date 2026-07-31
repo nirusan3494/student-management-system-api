@@ -70,7 +70,7 @@ public class StudentService {
 
     public List<StudentResponseDto> getStudentsByName(String name){
         List<StudentResponseDto> response=new ArrayList<>();
-        List<Student> students=studentRepository.findByNameContaining(name);
+        List<Student> students=studentRepository.findByNameContainingIgnoreCase(name);
         for(Student student:students){
             StudentResponseDto dto = new StudentResponseDto(
                     student.getId(),

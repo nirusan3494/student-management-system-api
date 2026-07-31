@@ -12,5 +12,5 @@ public interface StudentRepository
 
     boolean existsByEmail(String email);
 
-    List<Student> findByNameContaining(String name);
+    List<Student> findByNameContainingIgnoreCase(String name);
 }
