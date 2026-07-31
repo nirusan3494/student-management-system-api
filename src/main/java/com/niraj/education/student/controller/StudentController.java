@@ -46,7 +46,7 @@ public class StudentController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<StudentResponseDto>> getStudentsByName(@RequestParam String name){
+    public ResponseEntity<List<StudentResponseDto>> findByNameContaining(@RequestParam String name){
         return ResponseEntity.ok(
                 studentService.getStudentsByName(name)
         );
