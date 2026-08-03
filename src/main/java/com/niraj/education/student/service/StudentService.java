@@ -167,4 +167,22 @@ public class StudentService {
     }
 
 
+
+    public List<StudentResponseDto> getStudentsBySuffix(String suffix){
+        List<Student>students=studentRepository.findByNameEndingWith(suffix);
+
+        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
+
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
+
 }

@@ -20,4 +20,6 @@ public interface StudentRepository
     List<Student>findByNameOrEmail(String name,String email);
 
     List<Student> findByNameStartingWith(String prefix);
+
+    List<Student> findByNameEndingWith(String suffix);
 }

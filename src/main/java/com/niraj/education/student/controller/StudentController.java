@@ -105,4 +105,14 @@ public class StudentController {
 
     }
 
+
+    @GetMapping("/search/end")
+    public ResponseEntity<List<StudentResponseDto>>getStudentBySuffix(@RequestParam String suffix){
+
+        return ResponseEntity.ok(
+                studentService.getStudentsBySuffix(suffix)
+        );
+
+    }
+
 }
