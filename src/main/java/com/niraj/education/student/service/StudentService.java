@@ -32,25 +32,18 @@ public class StudentService {
                 requestDto.getName(),
                 requestDto.getEmail()
         );
-
-
         if (studentRepository.existsByEmail(student.getEmail())) {
             throw new EmailAlreadyExistsException(
                     "Student email already registered"
             );
         }
-
-
         Student savedStudent = studentRepository.save(student);
-
-
         return new StudentResponseDto(
                 savedStudent.getId(),
                 savedStudent.getName(),
                 savedStudent.getEmail()
         );
     }
-
 
 
 
@@ -69,55 +62,6 @@ public class StudentService {
     }
 
 
-    public List<StudentResponseDto> getStudentsByName(String name){
-        List<StudentResponseDto> response=new ArrayList<>();
-        List<Student> students=studentRepository.findByNameContainingIgnoreCase(name);
-        for(Student student:students){
-            StudentResponseDto dto = new StudentResponseDto(
-                    student.getId(),
-                    student.getName(),
-                    student.getEmail()
-            );
-            response.add(dto);
-        }
-        return response;
-    }
-
-    public StudentResponseDto getStudentByNameAndEmail(String name, String email){
-
-        Student student = studentRepository
-                .findByNameAndEmail(name, email)
-                .orElseThrow(
-                        () -> new StudentNotFoundException(
-                                "Student not found"
-                        )
-                );
-
-        return new StudentResponseDto(
-                student.getId(),
-                student.getName(),
-                student.getEmail()
-        );
-    }
-
-    public List<StudentResponseDto> getStudentByNameOrEmail(String name, String email){
-
-        List<Student> students = studentRepository
-                .findByNameOrEmail(name, email);
-        List<StudentResponseDto> studentResponseDtos=new ArrayList<>();
-
-        for(Student student:students){
-            StudentResponseDto studentResponseDto = new StudentResponseDto(
-                    student.getId(),
-                    student.getName(),
-                    student.getEmail()
-            );
-            studentResponseDtos.add(studentResponseDto);
-        }
-        return studentResponseDtos;
-
-    }
-
     public Student getStudentById(Long id){
         return studentRepository
                 .findById(id)
@@ -127,6 +71,7 @@ public class StudentService {
                         )
                 );
     }
+
 
     public void deleteStudentById(Long id){
         studentRepository.findById(id)
@@ -152,5 +97,74 @@ public class StudentService {
          return studentRepository.save(existingStudent);
 
     }
+
+
+    public List<StudentResponseDto> getStudentsByName(String name){
+        List<StudentResponseDto> response=new ArrayList<>();
+        List<Student> students=studentRepository.findByNameContainingIgnoreCase(name);
+        for(Student student:students){
+            StudentResponseDto dto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            response.add(dto);
+        }
+        return response;
+    }
+
+
+    public StudentResponseDto getStudentByNameAndEmail(String name, String email){
+
+        Student student = studentRepository
+                .findByNameAndEmail(name, email)
+                .orElseThrow(
+                        () -> new StudentNotFoundException(
+                                "Student not found"
+                        )
+                );
+
+        return new StudentResponseDto(
+                student.getId(),
+                student.getName(),
+                student.getEmail()
+        );
+    }
+
+
+    public List<StudentResponseDto> getStudentByNameOrEmail(String name, String email){
+
+        List<Student> students = studentRepository
+                .findByNameOrEmail(name, email);
+        List<StudentResponseDto> studentResponseDtos=new ArrayList<>();
+
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
+
+    public List<StudentResponseDto> getStudentsByPrefix(String prefix){
+        List<Student>students=studentRepository.findByNameStartingWith(prefix);
+
+        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
+
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
 
 }

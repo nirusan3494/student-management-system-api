@@ -25,6 +25,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(
             @RequestBody @Valid StudentRequestDto requestDTO){
@@ -37,6 +38,28 @@ public class StudentController {
                 .body(response);
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity <Student> getStudentById(@PathVariable Long id){
+        Student student=studentService.getStudentById(id);
+        return ResponseEntity.ok(student);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudentById(@PathVariable Long id){
+        studentService.deleteStudentById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudentById(@PathVariable Long id, @RequestBody @Valid Student student){
+        Student updatedStudent=studentService.updateStudentById(id, student);
+        return ResponseEntity.ok(updatedStudent);
+    }
+
+
     @GetMapping
     public ResponseEntity<Page<StudentResponseDto>> getAllStudents(Pageable pageable){
 
@@ -45,12 +68,14 @@ public class StudentController {
         );
     }
 
+
     @GetMapping("/search")
     public ResponseEntity<List<StudentResponseDto>> findByNameContaining(@RequestParam String name){
         return ResponseEntity.ok(
                 studentService.getStudentsByName(name)
         );
     }
+
 
     @GetMapping("/search/details")
     public ResponseEntity<StudentResponseDto>getStudentByNameAndEmail(
@@ -61,6 +86,7 @@ public class StudentController {
         );
     }
 
+
     @GetMapping("/search/filter")
     public ResponseEntity<List<StudentResponseDto>>getStudentByNameOrEmail(
             @RequestParam String name, @RequestParam String email
@@ -70,22 +96,13 @@ public class StudentController {
         );
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity <Student> getStudentById(@PathVariable Long id){
-        Student student=studentService.getStudentById(id);
-        return ResponseEntity.ok(student);
-    }
+    @GetMapping("/search/start")
+    public ResponseEntity<List<StudentResponseDto>>getStudentByPrefix(@RequestParam String prefix){
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudentById(@PathVariable Long id){
-        studentService.deleteStudentById(id);
-        return ResponseEntity.noContent().build();
-    }
+        return ResponseEntity.ok(
+                studentService.getStudentsByPrefix(prefix)
+        );
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudentById(@PathVariable Long id, @RequestBody @Valid Student student){
-        Student updatedStudent=studentService.updateStudentById(id, student);
-        return ResponseEntity.ok(updatedStudent);
     }
 
 }
