@@ -17,4 +17,6 @@ public interface StudentRepository
 
     Optional<Student>findByNameAndEmail(String name,String email);
 
+    List<Student>findByNameOrEmail(String name,String email);
+
 }

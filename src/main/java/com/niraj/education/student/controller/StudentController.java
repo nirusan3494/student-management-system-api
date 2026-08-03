@@ -61,6 +61,15 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/search/filter")
+    public ResponseEntity<List<StudentResponseDto>>getStudentByNameOrEmail(
+            @RequestParam String name, @RequestParam String email
+    ){
+        return ResponseEntity.ok(
+                studentService.getStudentByNameOrEmail(name, email)
+        );
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity <Student> getStudentById(@PathVariable Long id){
         Student student=studentService.getStudentById(id);

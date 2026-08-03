@@ -99,6 +99,25 @@ public class StudentService {
                 student.getEmail()
         );
     }
+
+    public List<StudentResponseDto> getStudentByNameOrEmail(String name, String email){
+
+        List<Student> students = studentRepository
+                .findByNameOrEmail(name, email);
+        List<StudentResponseDto> studentResponseDtos=new ArrayList<>();
+
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+
+    }
+
     public Student getStudentById(Long id){
         return studentRepository
                 .findById(id)
