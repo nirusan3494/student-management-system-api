@@ -26,4 +26,6 @@ public interface StudentRepository
     List<Student> findByIdGreaterThan(Long id);
 
     List<Student> findByIdLessThan(Long id);
+
+    List<Student> findByIdBetween(Long startId, Long endId);
 }

@@ -184,6 +184,7 @@ public class StudentService {
         return studentResponseDtos;
     }
 
+
     public List<StudentResponseDto>getStudentsByIdGreaterThan(Long id){
         List<Student> students=studentRepository.findByIdGreaterThan(id);
         List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
@@ -198,8 +199,23 @@ public class StudentService {
         return studentResponseDtos;
     }
 
+
     public List<StudentResponseDto>getStudentsByIdLessThan(Long id){
         List<Student> students=studentRepository.findByIdLessThan(id);
+        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
+    public List<StudentResponseDto>getStudentsByIdBetween(Long startId, Long endId){
+        List<Student> students=studentRepository.findByIdBetween(startId,endId);
         List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
         for(Student student:students){
             StudentResponseDto studentResponseDto = new StudentResponseDto(

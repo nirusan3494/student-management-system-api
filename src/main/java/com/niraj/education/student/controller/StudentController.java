@@ -127,4 +127,10 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/search/id/between")
+    public ResponseEntity<List<StudentResponseDto>>getStudentByIdBetween(@RequestParam Long startId, @RequestParam Long endId){
+        return ResponseEntity.ok(
+                studentService.getStudentsByIdBetween(startId, endId));
+    }
+
 }
