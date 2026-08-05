@@ -24,4 +24,6 @@ public interface StudentRepository
     List<Student> findByNameEndingWith(String suffix);
 
     List<Student> findByIdGreaterThan(Long id);
+
+    List<Student> findByIdLessThan(Long id);
 }

@@ -120,4 +120,11 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/search/id/less")
+    public ResponseEntity<List<StudentResponseDto>>getStudentByIdLessThan(@RequestParam Long id){
+        return ResponseEntity.ok(
+                studentService.getStudentsByIdGreaterThan(id)
+        );
+    }
+
 }
