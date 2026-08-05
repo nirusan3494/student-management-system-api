@@ -31,4 +31,7 @@ public interface StudentRepository
 
     List<Student>findByNameOrderByIdAsc(String name);
 
+    List<Student>findByNameOrderByIdDesc(String name);
+
+
 }

@@ -139,5 +139,11 @@ public class StudentController {
                 studentService.findByNameOrderByIdAsc(name));
     }
 
+    @GetMapping("/search/order/desc")
+    public ResponseEntity<List<StudentResponseDto>>findByNameOrderByIdDesc(@RequestParam String name){
+        return ResponseEntity.ok(
+                studentService.findByNameOrderByIdDesc(name));
+    }
+
 
 }
