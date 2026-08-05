@@ -28,4 +28,7 @@ public interface StudentRepository
     List<Student> findByIdLessThan(Long id);
 
     List<Student> findByIdBetween(Long startId, Long endId);
+
+    List<Student>findByNameOrderByIdAsc(String name);
+
 }

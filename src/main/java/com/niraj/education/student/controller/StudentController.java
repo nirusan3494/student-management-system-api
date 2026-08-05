@@ -133,4 +133,11 @@ public class StudentController {
                 studentService.getStudentsByIdBetween(startId, endId));
     }
 
+    @GetMapping("/search/order/asc")
+    public ResponseEntity<List<StudentResponseDto>>findByNameOrderByIdAsc(@RequestParam String name){
+        return ResponseEntity.ok(
+                studentService.findByNameOrderByIdAsc(name));
+    }
+
+
 }
