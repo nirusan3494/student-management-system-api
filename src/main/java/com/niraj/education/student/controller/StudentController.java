@@ -102,7 +102,6 @@ public class StudentController {
         return ResponseEntity.ok(
                 studentService.getStudentsByPrefix(prefix)
         );
-
     }
 
 
@@ -112,7 +111,13 @@ public class StudentController {
         return ResponseEntity.ok(
                 studentService.getStudentsBySuffix(suffix)
         );
+    }
 
+    @GetMapping("/search/id/greater")
+    public ResponseEntity<List<StudentResponseDto>>getStudentByIdGreaterThan(@RequestParam Long id){
+        return ResponseEntity.ok(
+                studentService.getStudentsByIdGreaterThan(id)
+        );
     }
 
 }

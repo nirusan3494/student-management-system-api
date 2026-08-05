@@ -184,5 +184,19 @@ public class StudentService {
         return studentResponseDtos;
     }
 
+    public List<StudentResponseDto>getStudentsByIdGreaterThan(Long id){
+        List<Student> students=studentRepository.findByIdGreaterThan(id);
+        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
 
 }
