@@ -74,4 +74,15 @@ public interface StudentRepository
     """)
     long countStudents();
 
+    @Query("""
+            SELECt Min(s.id)
+            From Student s
+            """)
+    Long findMinimumStudentId();
+
+    @Query("""
+            SELECT MAX(s.id)
+            FROM Student s
+            """)
+    Long findMaximumStudentId();
 }

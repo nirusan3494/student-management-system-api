@@ -160,5 +160,20 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/search/jpql/min-id")
+    public ResponseEntity<Long> getMinimumStudentId() {
+        return ResponseEntity.ok(
+                studentService.getMinimumStudentId()
+        );
+    }
+
+
+    @GetMapping("/search/jpql/max-id")
+    public ResponseEntity<Long> getMaximumStudentId() {
+        return ResponseEntity.ok(
+                studentService.getMaximumStudentId()
+        );
+    }
+
 
 }

@@ -291,6 +291,14 @@ public class StudentService {
         return studentRepository.countStudents();
     }
 
+    public Long getMinimumStudentId(){
+        return studentRepository.findMinimumStudentId();
+    }
+
+    public Long getMaximumStudentId(){
+        return studentRepository.findMaximumStudentId();
+    }
+
 
 
 }
