@@ -299,6 +299,8 @@ public class StudentService {
         return studentRepository.findMaximumStudentId();
     }
 
-
+    public Double getAverageStudentId() {
+        return studentRepository.findAverageStudentId();
+    }
 
 }

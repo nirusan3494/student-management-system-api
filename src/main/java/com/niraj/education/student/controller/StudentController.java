@@ -176,4 +176,12 @@ public class StudentController {
     }
 
 
+    @GetMapping("/search/jpql/avg-id")
+    public ResponseEntity<Double> getAverageStudentId() {
+        return ResponseEntity.ok(
+                studentService.getAverageStudentId()
+        );
+    }
+
+
 }

@@ -85,4 +85,11 @@ public interface StudentRepository
             FROM Student s
             """)
     Long findMaximumStudentId();
+
+
+    @Query("""
+    SELECT AVG(s.id)
+    FROM Student s
+    """)
+    Double findAverageStudentId();
 }
