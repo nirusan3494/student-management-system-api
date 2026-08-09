@@ -153,5 +153,12 @@ public class StudentController {
                 studentService.findTop3ByOrderByIdDesc());
     }
 
+    @GetMapping("/search/jpql/count")
+    public ResponseEntity<Long> getStudentCount() {
+        return ResponseEntity.ok(
+                studentService.getStudentCount()
+        );
+    }
+
 
 }

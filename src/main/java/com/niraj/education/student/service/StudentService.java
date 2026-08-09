@@ -287,5 +287,10 @@ public class StudentService {
     }
 
 
+    public long getStudentCount() {
+        return studentRepository.countStudents();
+    }
+
+
 
 }

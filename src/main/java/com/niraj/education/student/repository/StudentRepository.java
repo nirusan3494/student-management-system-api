@@ -68,5 +68,10 @@ public interface StudentRepository
 
     List<Student> findTop3ByOrderByIdDesc();
 
+    @Query("""
+    SELECT COUNT(s)
+    FROM Student s
+    """)
+    long countStudents();
 
 }
