@@ -114,10 +114,10 @@ public class StudentService {
     }
 
 
-    public StudentResponseDto getStudentByNameAndEmail(String name, String email){
+    public StudentResponseDto searchByNameAndEmail(String name, String email){
 
         Student student = studentRepository
-                .findByNameAndEmail(name, email)
+                .searchByNameAndEmail(name, email)
                 .orElseThrow(
                         () -> new StudentNotFoundException(
                                 "Student not found"

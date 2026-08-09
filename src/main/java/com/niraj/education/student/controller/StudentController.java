@@ -77,12 +77,12 @@ public class StudentController {
     }
 
 
-    @GetMapping("/search/details")
+    @GetMapping("/search/jpql")
     public ResponseEntity<StudentResponseDto>getStudentByNameAndEmail(
             @RequestParam String name, @RequestParam String email
     ){
         return ResponseEntity.ok(
-                studentService.getStudentByNameAndEmail(name, email)
+                studentService.searchByNameAndEmail(name, email)
         );
     }
 

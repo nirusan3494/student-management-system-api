@@ -21,7 +21,13 @@ public interface StudentRepository
             """)
     List<Student> searchByName(@Param("name")String name);
 
-    Optional<Student>findByNameAndEmail(String name,String email);
+    @Query("""
+            SELECT s
+            FROM Student s
+            WHERE LOWER(s.name)LIKE LOWER (CONCAT('%', :name, '%'))
+             AND LOWER(s.email)LIKE LOWER(CONCAT('%',:email, '%'))
+            """)
+    Optional<Student> searchByNameAndEmail(@Param ("name")String name, @Param("email")String email);
 
     List<Student>findByNameOrEmail(String name,String email);
 
