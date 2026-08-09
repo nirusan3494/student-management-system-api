@@ -70,7 +70,7 @@ public class StudentController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<StudentResponseDto>> findByNameContaining(@RequestParam String name){
+    public ResponseEntity<List<StudentResponseDto>> searchStudents(@RequestParam String name){
         return ResponseEntity.ok(
                 studentService.getStudentsByName(name)
         );
@@ -123,7 +123,7 @@ public class StudentController {
     @GetMapping("/search/id/less")
     public ResponseEntity<List<StudentResponseDto>>getStudentByIdLessThan(@RequestParam Long id){
         return ResponseEntity.ok(
-                studentService.getStudentsByIdGreaterThan(id)
+                studentService.getStudentsByIdLessThan(id)
         );
     }
 
@@ -143,6 +143,12 @@ public class StudentController {
     public ResponseEntity<List<StudentResponseDto>>findByNameOrderByIdDesc(@RequestParam String name){
         return ResponseEntity.ok(
                 studentService.findByNameOrderByIdDesc(name));
+    }
+
+    @GetMapping("/search/top3")
+    public ResponseEntity<List<StudentResponseDto>>findTop3ByOrderByIdDesc(){
+        return ResponseEntity.ok(
+                studentService.findTop3ByOrderByIdDesc());
     }
 
 

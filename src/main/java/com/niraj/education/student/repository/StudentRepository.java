@@ -3,7 +3,8 @@ package com.niraj.education.student.repository;
 import com.niraj.education.student.entity.Student;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface StudentRepository
@@ -13,7 +14,12 @@ public interface StudentRepository
 
     boolean existsByEmail(String email);
 
-    List<Student> findByNameContainingIgnoreCase(String name);
+    @Query("""
+            SELECT s
+            FROM Student s
+            WHERE LOWER(s.name) LIKE LOWER(CONCAT('%',:name, '%'))
+            """)
+    List<Student> searchByName(@Param("name")String name);
 
     Optional<Student>findByNameAndEmail(String name,String email);
 
@@ -32,6 +38,8 @@ public interface StudentRepository
     List<Student>findByNameOrderByIdAsc(String name);
 
     List<Student>findByNameOrderByIdDesc(String name);
+
+    List<Student> findTop3ByOrderByIdDesc();
 
 
 }

@@ -101,7 +101,7 @@ public class StudentService {
 
     public List<StudentResponseDto> getStudentsByName(String name){
         List<StudentResponseDto> response=new ArrayList<>();
-        List<Student> students=studentRepository.findByNameContainingIgnoreCase(name);
+        List<Student> students=studentRepository.searchByName(name);
         for(Student student:students){
             StudentResponseDto dto = new StudentResponseDto(
                     student.getId(),
@@ -244,6 +244,21 @@ public class StudentService {
 
     public List<StudentResponseDto>findByNameOrderByIdDesc(String name){
         List<Student> students=studentRepository.findByNameOrderByIdDesc(name);
+        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
+        for(Student student:students){
+            StudentResponseDto studentResponseDto = new StudentResponseDto(
+                    student.getId(),
+                    student.getName(),
+                    student.getEmail()
+            );
+            studentResponseDtos.add(studentResponseDto);
+        }
+        return studentResponseDtos;
+    }
+
+
+    public List<StudentResponseDto>findTop3ByOrderByIdDesc(){
+        List<Student> students=studentRepository.findTop3ByOrderByIdDesc();
         List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
         for(Student student:students){
             StudentResponseDto studentResponseDto = new StudentResponseDto(
