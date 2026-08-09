@@ -52,9 +52,19 @@ public interface StudentRepository
            """)
    List<Student> findStudentByIdBetween(@Param("startId")Long startId, @Param("endId")Long endId);
 
-    List<Student>findByNameOrderByIdAsc(String name);
+    @Query("""
+    SELECT s
+    FROM Student s
+    ORDER BY s.id ASC
+    """)
+    List<Student> findStudentsOrderByIdAsc();
 
-    List<Student>findByNameOrderByIdDesc(String name);
+    @Query("""
+    SELECT s
+    FROM Student s
+    ORDER BY s.id DESC
+    """)
+    List<Student> findStudentsOrderByIdDesc();
 
     List<Student> findTop3ByOrderByIdDesc();
 

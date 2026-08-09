@@ -133,16 +133,18 @@ public class StudentController {
                 studentService.getStudentsByIdBetween(startId, endId));
     }
 
-    @GetMapping("/search/order/asc")
-    public ResponseEntity<List<StudentResponseDto>>findByNameOrderByIdAsc(@RequestParam String name){
+    @GetMapping("/search/jpql/order/asc")
+    public ResponseEntity<List<StudentResponseDto>> getStudentsOrderByIdAsc() {
         return ResponseEntity.ok(
-                studentService.findByNameOrderByIdAsc(name));
+                studentService.getStudentsOrderByIdAsc()
+        );
     }
 
-    @GetMapping("/search/order/desc")
-    public ResponseEntity<List<StudentResponseDto>>findByNameOrderByIdDesc(@RequestParam String name){
+    @GetMapping("/search/jpql/order/desc")
+    public ResponseEntity<List<StudentResponseDto>> getStudentsOrderByIdDesc() {
         return ResponseEntity.ok(
-                studentService.findByNameOrderByIdDesc(name));
+                studentService.getStudentsOrderByIdDesc()
+        );
     }
 
     @GetMapping("/search/top3")

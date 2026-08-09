@@ -228,33 +228,48 @@ public class StudentService {
         return studentResponseDtos;
     }
 
-    public List<StudentResponseDto>findByNameOrderByIdAsc(String name){
-        List<Student> students=studentRepository.findByNameOrderByIdAsc(name);
-        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
-        for(Student student:students){
-            StudentResponseDto studentResponseDto = new StudentResponseDto(
-                    student.getId(),
-                    student.getName(),
-                    student.getEmail()
+    public List<StudentResponseDto> getStudentsOrderByIdAsc() {
+
+        List<Student> students =
+                studentRepository.findStudentsOrderByIdAsc();
+
+        List<StudentResponseDto> response = new ArrayList<>();
+
+        for (Student student : students) {
+            response.add(
+                    new StudentResponseDto(
+                            student.getId(),
+                            student.getName(),
+                            student.getEmail()
+                    )
             );
-            studentResponseDtos.add(studentResponseDto);
         }
-        return studentResponseDtos;
+
+        return response;
     }
 
-    public List<StudentResponseDto>findByNameOrderByIdDesc(String name){
-        List<Student> students=studentRepository.findByNameOrderByIdDesc(name);
-        List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
-        for(Student student:students){
-            StudentResponseDto studentResponseDto = new StudentResponseDto(
-                    student.getId(),
-                    student.getName(),
-                    student.getEmail()
+
+    public List<StudentResponseDto> getStudentsOrderByIdDesc() {
+
+        List<Student> students =
+                studentRepository.findStudentsOrderByIdDesc();
+
+        List<StudentResponseDto> response = new ArrayList<>();
+
+        for (Student student : students) {
+            response.add(
+                    new StudentResponseDto(
+                            student.getId(),
+                            student.getName(),
+                            student.getEmail()
+                    )
             );
-            studentResponseDtos.add(studentResponseDto);
         }
-        return studentResponseDtos;
+
+        return response;
     }
+
+
 
 
     public List<StudentResponseDto>findTop3ByOrderByIdDesc(){
