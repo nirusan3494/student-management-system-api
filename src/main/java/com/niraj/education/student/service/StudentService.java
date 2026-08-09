@@ -303,4 +303,7 @@ public class StudentService {
         return studentRepository.findAverageStudentId();
     }
 
+    public List<StudentResponseDto> getStudentDetails(){
+        return  studentRepository.findStudentDetails();
+    }
 }

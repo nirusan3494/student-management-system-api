@@ -184,4 +184,12 @@ public class StudentController {
     }
 
 
+    @GetMapping("/search/jpql/details")
+    public ResponseEntity<List<StudentResponseDto>> getStudentDetails(){
+        return ResponseEntity.ok(
+                studentService.getStudentDetails()
+        );
+    }
+
+
 }

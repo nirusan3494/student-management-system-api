@@ -1,5 +1,6 @@
 package com.niraj.education.student.repository;
 
+import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -92,4 +93,14 @@ public interface StudentRepository
     FROM Student s
     """)
     Double findAverageStudentId();
+
+    @Query("""
+            SELECT new com.niraj.education.student.dto.StudentResponseDto(
+            s.id,
+            s.name,
+            s.email
+            )
+            FROM Student s
+            """)
+    List<StudentResponseDto>findStudentDetails();
 }
