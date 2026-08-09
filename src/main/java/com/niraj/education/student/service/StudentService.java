@@ -132,10 +132,10 @@ public class StudentService {
     }
 
 
-    public List<StudentResponseDto> getStudentByNameOrEmail(String name, String email){
+    public List<StudentResponseDto> searchByNameOrEmail(String name, String email){
 
         List<Student> students = studentRepository
-                .findByNameOrEmail(name, email);
+                .searchByNameOrEmail(name, email);
         List<StudentResponseDto> studentResponseDtos=new ArrayList<>();
 
         for(Student student:students){
@@ -215,7 +215,7 @@ public class StudentService {
     }
 
     public List<StudentResponseDto>getStudentsByIdBetween(Long startId, Long endId){
-        List<Student> students=studentRepository.findByIdBetween(startId,endId);
+        List<Student> students=studentRepository.findStudentByIdBetween(startId,endId);
         List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
         for(Student student:students){
             StudentResponseDto studentResponseDto = new StudentResponseDto(

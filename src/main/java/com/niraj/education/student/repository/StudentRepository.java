@@ -29,7 +29,13 @@ public interface StudentRepository
             """)
     Optional<Student> searchByNameAndEmail(@Param ("name")String name, @Param("email")String email);
 
-    List<Student>findByNameOrEmail(String name,String email);
+    @Query("""
+            SELECT s
+            FROM Student s
+            WHERE s.name=:name
+               OR s.email=:email
+            """)
+    List<Student> searchByNameOrEmail(@Param("name")String name, @Param("email")String email);
 
     List<Student> findByNameStartingWith(String prefix);
 
@@ -39,7 +45,12 @@ public interface StudentRepository
 
     List<Student> findByIdLessThan(Long id);
 
-    List<Student> findByIdBetween(Long startId, Long endId);
+   @Query("""
+           SELECT s
+           FROM Student s
+           WHERE s.id BETWEEN :startId AND :endId
+           """)
+   List<Student> findStudentByIdBetween(@Param("startId")Long startId, @Param("endId")Long endId);
 
     List<Student>findByNameOrderByIdAsc(String name);
 

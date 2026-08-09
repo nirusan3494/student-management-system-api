@@ -77,7 +77,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("/search/jpql")
+    @GetMapping("/search/jpql/and")
     public ResponseEntity<StudentResponseDto>getStudentByNameAndEmail(
             @RequestParam String name, @RequestParam String email
     ){
@@ -87,12 +87,12 @@ public class StudentController {
     }
 
 
-    @GetMapping("/search/filter")
+    @GetMapping("/search/jpql/or")
     public ResponseEntity<List<StudentResponseDto>>getStudentByNameOrEmail(
             @RequestParam String name, @RequestParam String email
     ){
         return ResponseEntity.ok(
-                studentService.getStudentByNameOrEmail(name, email)
+                studentService.searchByNameOrEmail(name, email)
         );
     }
 
@@ -127,7 +127,7 @@ public class StudentController {
         );
     }
 
-    @GetMapping("/search/id/between")
+    @GetMapping("/search/jpql/between")
     public ResponseEntity<List<StudentResponseDto>>getStudentByIdBetween(@RequestParam Long startId, @RequestParam Long endId){
         return ResponseEntity.ok(
                 studentService.getStudentsByIdBetween(startId, endId));
