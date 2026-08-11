@@ -36,4 +36,19 @@ private final DepartmentService departmentService;
         return ResponseEntity.ok(response);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DepartmentResponseDto>updateDepartment(@PathVariable Long id,
+    @RequestBody DepartmentRequestDto requestDto) {
+        DepartmentResponseDto responseDto=departmentService.updateDepartment(id,requestDto);
+        return ResponseEntity.ok(responseDto);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DepartmentResponseDto>deleteDepartment(@PathVariable Long id) {
+        departmentService.deleteDepartment(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

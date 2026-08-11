@@ -28,6 +28,8 @@ public class DepartmentService {
      return responseDto;
     }
 
+
+
     public List<DepartmentResponseDto> getAllDepartments(){
         List<Department>departments=departmentRepository.findAll();
         List<DepartmentResponseDto> response=new ArrayList<>();
@@ -41,6 +43,9 @@ public class DepartmentService {
         return response;
     }
 
+
+
+
     public DepartmentResponseDto getDepartmentsById(Long id) {
     Department department=departmentRepository
             .findById(id)
@@ -52,6 +57,38 @@ public class DepartmentService {
     dto.setName(department.getName());
 
     return dto;
+    }
+
+
+
+    public DepartmentResponseDto updateDepartment(Long id,DepartmentRequestDto requestDto) {
+        Department department=departmentRepository
+                .findById(id)
+                .orElseThrow(
+                        ()->new DepartmentIDNotFoundException(
+                                "Department with id " + id + " not found"
+                        )
+                );
+        department.setName(requestDto.getName());
+        Department updatedDepartment=departmentRepository.save(department);
+        DepartmentResponseDto responseDto=new DepartmentResponseDto();
+        responseDto.setId(updatedDepartment.getId());
+        responseDto.setName(updatedDepartment.getName());
+
+        return responseDto;
+    }
+
+
+
+    public void deleteDepartment(Long id){
+        Department department=departmentRepository
+                .findById(id)
+                .orElseThrow(
+                        ()->new DepartmentIDNotFoundException(
+                                "Department with id " + id + " not found"
+                        )
+                );
+        departmentRepository.delete(department);
     }
 
 }
