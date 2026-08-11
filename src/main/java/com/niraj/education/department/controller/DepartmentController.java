@@ -6,10 +6,9 @@ import com.niraj.education.department.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/departments")
@@ -17,9 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentController {
 private final DepartmentService departmentService;
 
-@PostMapping
+    @PostMapping
     public ResponseEntity<DepartmentResponseDto>createDepartment(@RequestBody DepartmentRequestDto requestDto) {
-    DepartmentResponseDto departmentResponseDto=departmentService.createDepartment(requestDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(departmentResponseDto);
+         DepartmentResponseDto departmentResponseDto=departmentService.createDepartment(requestDto);
+      return ResponseEntity.status(HttpStatus.CREATED).body(departmentResponseDto);
 }
+
+    @GetMapping
+
+    public ResponseEntity<List<DepartmentResponseDto>>getAllDepartments() {
+         List<DepartmentResponseDto> response=departmentService.getAllDepartments();
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DepartmentResponseDto> getDepartmentById(@PathVariable Long id) {
+        DepartmentResponseDto response=departmentService.getDepartmentsById(id);
+        return ResponseEntity.ok(response);
+    }
+
 }
