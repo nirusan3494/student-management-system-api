@@ -3,6 +3,7 @@ package com.niraj.education.department.controller;
 import com.niraj.education.department.dto.DepartmentRequestDto;
 import com.niraj.education.department.dto.DepartmentResponseDto;
 import com.niraj.education.department.service.DepartmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class DepartmentController {
 private final DepartmentService departmentService;
 
     @PostMapping
-    public ResponseEntity<DepartmentResponseDto>createDepartment(@RequestBody DepartmentRequestDto requestDto) {
+    public ResponseEntity<DepartmentResponseDto>createDepartment( @Valid @RequestBody DepartmentRequestDto requestDto) {
          DepartmentResponseDto departmentResponseDto=departmentService.createDepartment(requestDto);
       return ResponseEntity.status(HttpStatus.CREATED).body(departmentResponseDto);
 }
