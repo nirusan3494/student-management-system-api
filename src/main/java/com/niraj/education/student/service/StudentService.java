@@ -1,5 +1,8 @@
 package com.niraj.education.student.service;
 
+import com.niraj.education.department.entity.Department;
+import com.niraj.education.department.repository.DepartmentRepository;
+import com.niraj.education.exception.DepartmentIDNotFoundException;
 import com.niraj.education.exception.EmailAlreadyExistsException;
 import com.niraj.education.exception.StudentIDNotFoundException;
 import com.niraj.education.exception.StudentNotFoundException;
@@ -8,6 +11,8 @@ import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
 import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,14 +20,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private final DepartmentRepository departmentRepository;
+
 
 
 
@@ -37,12 +42,26 @@ public class StudentService {
                     "Student email already registered"
             );
         }
+
+            Department department = departmentRepository
+                    .findById(requestDto.getDepartmentId())
+                    .orElseThrow(
+                            () -> new DepartmentIDNotFoundException(
+                                    "Department not found with id:" +
+                                            requestDto.getDepartmentId()
+                            )
+                    );
+        student.setDepartment(department);
+
         Student savedStudent = studentRepository.save(student);
         return new StudentResponseDto(
                 savedStudent.getId(),
                 savedStudent.getName(),
-                savedStudent.getEmail()
+                savedStudent.getEmail(),
+                savedStudent.getDepartment().getId()
         );
+
+
     }
 
 
@@ -56,7 +75,8 @@ public class StudentService {
                 new StudentResponseDto(
                         student.getId(),
                         student.getName(),
-                        student.getEmail()
+                        student.getEmail(),
+                        student.getDepartment().getId()
                 )
         );
     }
@@ -106,7 +126,8 @@ public class StudentService {
             StudentResponseDto dto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             response.add(dto);
         }
@@ -127,7 +148,8 @@ public class StudentService {
         return new StudentResponseDto(
                 student.getId(),
                 student.getName(),
-                student.getEmail()
+                student.getEmail(),
+                student.getDepartment().getId()
         );
     }
 
@@ -142,7 +164,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -159,7 +182,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -177,7 +201,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -192,7 +217,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -207,7 +233,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -221,7 +248,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }
@@ -240,7 +268,8 @@ public class StudentService {
                     new StudentResponseDto(
                             student.getId(),
                             student.getName(),
-                            student.getEmail()
+                            student.getEmail(),
+                            student.getDepartment().getId()
                     )
             );
         }
@@ -261,7 +290,8 @@ public class StudentService {
                     new StudentResponseDto(
                             student.getId(),
                             student.getName(),
-                            student.getEmail()
+                            student.getEmail(),
+                            student.getDepartment().getId()
                     )
             );
         }
@@ -279,7 +309,8 @@ public class StudentService {
             StudentResponseDto studentResponseDto = new StudentResponseDto(
                     student.getId(),
                     student.getName(),
-                    student.getEmail()
+                    student.getEmail(),
+                    student.getDepartment().getId()
             );
             studentResponseDtos.add(studentResponseDto);
         }

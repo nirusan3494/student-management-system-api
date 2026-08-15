@@ -98,7 +98,8 @@ public interface StudentRepository
             SELECT new com.niraj.education.student.dto.StudentResponseDto(
             s.id,
             s.name,
-            s.email
+            s.email,
+            s.department.id
             )
             FROM Student s
             """)

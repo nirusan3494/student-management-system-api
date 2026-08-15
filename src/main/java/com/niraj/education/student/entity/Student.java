@@ -1,24 +1,35 @@
 package com.niraj.education.student.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.niraj.education.department.entity.Department;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Student {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Setter
+    @Getter
     @NotBlank
     private String name;
 
+    @Setter
+    @Getter
     @NotBlank
     @Email
     private String email;
+
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
 
     protected Student(){}
 
@@ -27,25 +38,5 @@ public class Student {
         this.email = email;
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
 }
