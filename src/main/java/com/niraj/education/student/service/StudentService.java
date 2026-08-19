@@ -11,6 +11,7 @@ import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
 
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class StudentService {
 
 
 
-
+    @Transactional
     public StudentResponseDto registerStudent(StudentRequestDto requestDto) {
 
         Student student = new Student(
@@ -53,14 +54,13 @@ public class StudentService {
         student.setDepartment(department);
 
         Student savedStudent = studentRepository.save(student);
-        return new StudentResponseDto(
-                savedStudent.getId(),
-                savedStudent.getName(),
-                savedStudent.getEmail(),
-                savedStudent.getDepartment().getId()
-        );
-
-
+        throw new RuntimeException("Testing transaction rollback");
+//        return new StudentResponseDto(
+//                savedStudent.getId(),
+//                savedStudent.getName(),
+//                savedStudent.getEmail(),
+//                savedStudent.getDepartment().getId()
+//        );
     }
 
 
