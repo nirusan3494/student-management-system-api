@@ -10,7 +10,6 @@ import com.niraj.education.student.dto.StudentRequestDto;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -66,10 +65,10 @@ public class StudentService {
 
 
 
-    public Page<StudentResponseDto> getAllStudents(Pageable pageable){
+    public Page<StudentResponseDto> getAllStudents(Pageable pageable) {
 
         Page<Student> students =
-                studentRepository.findAll(pageable);
+                studentRepository.findAllWithDepartment(pageable);
 
         return students.map(student ->
                 new StudentResponseDto(
@@ -80,7 +79,6 @@ public class StudentService {
                 )
         );
     }
-
 
     public Student getStudentById(Long id){
         return studentRepository

@@ -3,6 +3,9 @@ package com.niraj.education.student.repository;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +17,21 @@ public interface StudentRepository
     Student findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+
+    @Query(
+            value = """
+        SELECT s
+        FROM Student s
+        JOIN FETCH s.department
+        """,
+            countQuery = """
+        SELECT COUNT(s)
+        FROM Student s
+        """
+    )
+    Page<Student> findAllWithDepartment(Pageable pageable);
+
 
     @Query("""
             SELECT s
