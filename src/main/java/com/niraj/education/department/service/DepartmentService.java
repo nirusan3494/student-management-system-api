@@ -9,6 +9,7 @@ import com.niraj.education.exception.StudentIDNotFoundException;
 import com.niraj.education.student.entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
+
+
+    @Transactional
+    public void testCascadePersist() {
+
+        Department department = new Department();
+        department.setName("Cascade Test");
+
+        Student student = new Student(
+                "Cascade Student",
+                "cascade@test.com"
+        );
+
+        student.setDepartment(department);
+        department.getStudents().add(student);
+
+        departmentRepository.save(department);
+    }
 
     public DepartmentResponseDto createDepartment(DepartmentRequestDto requestDto) {
      Department department = new Department();

@@ -56,14 +56,16 @@ public class StudentController {
 //public void testFlushRollback() {
 //    studentService.testFlushRollback();
 //}
+//
+//    @GetMapping("/test-lazy")
+//    public String testLazy() {
+//
+//        Student student = studentService.testLazy();
+//
+//        return student.getDepartment().getName();
+//    }
 
-    @GetMapping("/test-lazy")
-    public String testLazy() {
 
-        Student student = studentService.testLazy();
-
-        return student.getDepartment().getName();
-    }
 
 
     @PostMapping

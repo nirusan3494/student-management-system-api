@@ -17,6 +17,13 @@ import java.util.List;
 public class DepartmentController {
 private final DepartmentService departmentService;
 
+
+    @GetMapping("/test-cascade-persist")
+    public void testCascadePersist() {
+        departmentService.testCascadePersist();
+    }
+
+
     @PostMapping
     public ResponseEntity<DepartmentResponseDto>createDepartment( @Valid @RequestBody DepartmentRequestDto requestDto) {
          DepartmentResponseDto departmentResponseDto=departmentService.createDepartment(requestDto);

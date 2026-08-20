@@ -153,17 +153,18 @@ public class StudentService {
 //
 //    throw new RuntimeException("Testing rollback after flush");
 //}
-@Transactional(readOnly = true)
-public Student testLazy() {
+//@Transactional(readOnly = true)
+//public Student testLazy() {
+//
+//    Student student = studentRepository
+//            .findById(10L)
+//            .orElseThrow();
+//
+//    System.out.println("Student loaded");
+//
+//    return student;
+//}
 
-    Student student = studentRepository
-            .findById(10L)
-            .orElseThrow();
-
-    System.out.println("Student loaded");
-
-    return student;
-}
 
 
 
