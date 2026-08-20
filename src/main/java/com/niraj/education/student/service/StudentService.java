@@ -69,33 +69,54 @@ public class StudentService {
 //        student.setName("Detached Test");
 //    }
 
+//    @Transactional
+//    public void testMerge() {
+//
+//        Student student = studentRepository
+//                .findById(15L)
+//                .orElseThrow();
+//
+//        entityManager.detach(student);
+//
+//        System.out.println(
+//                "Original managed? " +
+//                        entityManager.contains(student)
+//        );
+//
+//        student.setName("Merge Test");
+//        //Hibernate takes the detached object's data and copies it into a managed entity
+//        Student managedStudent =
+//                entityManager.merge(student);
+//
+//        System.out.println(
+//                "Original managed after merge? " +
+//                        entityManager.contains(student)
+//        );
+//
+//        System.out.println(
+//                "Merged object managed? " +
+//                        entityManager.contains(managedStudent)
+//        );
+//    }
+
+
     @Transactional
-    public void testMerge() {
+    public void testRemove() {
 
         Student student = studentRepository
                 .findById(15L)
                 .orElseThrow();
 
-        entityManager.detach(student);
-
         System.out.println(
-                "Original managed? " +
+                "Before remove: " +
                         entityManager.contains(student)
         );
 
-        student.setName("Merge Test");
-        //Hibernate takes the detached object's data and copies it into a managed entity
-        Student managedStudent =
-                entityManager.merge(student);
+        entityManager.remove(student);
 
         System.out.println(
-                "Original managed after merge? " +
+                "After remove: " +
                         entityManager.contains(student)
-        );
-
-        System.out.println(
-                "Merged object managed? " +
-                        entityManager.contains(managedStudent)
         );
     }
 
