@@ -42,12 +42,15 @@ public class StudentController {
 //    public void testMerge() {
 //        studentService.testMerge();
 //    }
-@GetMapping("/test-remove")
-public void testRemove() {
-    studentService.testRemove();
-}
+//@GetMapping("/test-remove")
+//public void testRemove() {
+//    studentService.testRemove();
+//}
 
-
+    @GetMapping("/test-flush")
+    public void testFlush() {
+        studentService.testFlush();
+    }
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(
             @RequestBody @Valid StudentRequestDto requestDTO){

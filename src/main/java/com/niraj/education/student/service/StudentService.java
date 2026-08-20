@@ -99,25 +99,41 @@ public class StudentService {
 //        );
 //    }
 
+//
+//    @Transactional
+//    public void testRemove() {
+//
+//        Student student = studentRepository
+//                .findById(15L)
+//                .orElseThrow();
+//
+//        System.out.println(
+//                "Before remove: " +
+//                        entityManager.contains(student)
+//        );
+//
+//        entityManager.remove(student);
+//
+//        System.out.println(
+//                "After remove: " +
+//                        entityManager.contains(student)
+//        );
+//    }
 
     @Transactional
-    public void testRemove() {
+    public void testFlush() {
 
         Student student = studentRepository
-                .findById(15L)
+                .findById(13L)
                 .orElseThrow();
 
-        System.out.println(
-                "Before remove: " +
-                        entityManager.contains(student)
-        );
+        student.setName("Flush Test");
 
-        entityManager.remove(student);
+        System.out.println("Before flush");
 
-        System.out.println(
-                "After remove: " +
-                        entityManager.contains(student)
-        );
+        entityManager.flush();
+
+        System.out.println("After flush");
     }
 
 
