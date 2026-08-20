@@ -23,10 +23,21 @@ private final DepartmentService departmentService;
 //        departmentService.testCascadePersist();
 //    }
 
-    @GetMapping("/test-cascade-remove")
-    public void testCascadeRemove() {
-        departmentService.testCascadeRemove();
+//    @GetMapping("/test-cascade-remove")
+//    public void testCascadeRemove() {
+//        departmentService.testCascadeRemove();
+//    }
+
+    @GetMapping("/create-orphan-test")
+    public void createOrphanTest() {
+        departmentService.createOrphanTest();
     }
+
+    @GetMapping("/test-orphan-removal")
+    public void testOrphanRemoval() {
+        departmentService.removeOrphanStudent();
+    }
+
 
 
     @PostMapping

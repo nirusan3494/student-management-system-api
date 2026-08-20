@@ -37,14 +37,50 @@ public class DepartmentService {
 //        departmentRepository.save(department);
 //    }
 
+//    @Transactional
+//    public void testCascadeRemove() {
+//
+//        Department department = departmentRepository
+//                .findById(5L)
+//                .orElseThrow();
+//
+//        departmentRepository.delete(department);
+//    }
+//
+
+
     @Transactional
-    public void testCascadeRemove() {
+    public void createOrphanTest() {
+
+        Department department = new Department();
+        department.setName("Orphan Test");
+
+        Student student = new Student(
+                "Orphan Student",
+                "orphan@test.com"
+        );
+
+        student.setDepartment(department);
+        department.getStudents().add(student);
+
+        departmentRepository.save(department);
+    }
+
+
+    @Transactional
+    public void removeOrphanStudent() {
 
         Department department = departmentRepository
-                .findById(5L)
+                .findById(8L)
                 .orElseThrow();
 
-        departmentRepository.delete(department);
+        Student student = department.getStudents()
+                .stream()
+                .filter(s -> s.getEmail().equals("orphan@test.com"))
+                .findFirst()
+                .orElseThrow();
+
+        department.getStudents().remove(student);
     }
 
 
