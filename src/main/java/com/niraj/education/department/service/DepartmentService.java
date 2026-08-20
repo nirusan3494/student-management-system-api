@@ -19,23 +19,34 @@ import java.util.List;
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
+//
+//    @Transactional
+//    public void testCascadePersist() {
+//
+//        Department department = new Department();
+//        department.setName("Cascade Test");
+//
+//        Student student = new Student(
+//                "Cascade Student",
+//                "cascade@test.com"
+//        );
+//
+//        student.setDepartment(department);
+//        department.getStudents().add(student);
+//
+//        departmentRepository.save(department);
+//    }
 
     @Transactional
-    public void testCascadePersist() {
+    public void testCascadeRemove() {
 
-        Department department = new Department();
-        department.setName("Cascade Test");
+        Department department = departmentRepository
+                .findById(5L)
+                .orElseThrow();
 
-        Student student = new Student(
-                "Cascade Student",
-                "cascade@test.com"
-        );
-
-        student.setDepartment(department);
-        department.getStudents().add(student);
-
-        departmentRepository.save(department);
+        departmentRepository.delete(department);
     }
+
 
     public DepartmentResponseDto createDepartment(DepartmentRequestDto requestDto) {
      Department department = new Department();

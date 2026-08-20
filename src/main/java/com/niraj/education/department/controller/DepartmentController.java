@@ -18,9 +18,14 @@ public class DepartmentController {
 private final DepartmentService departmentService;
 
 
-    @GetMapping("/test-cascade-persist")
-    public void testCascadePersist() {
-        departmentService.testCascadePersist();
+//    @GetMapping("/test-cascade-persist")
+//    public void testCascadePersist() {
+//        departmentService.testCascadePersist();
+//    }
+
+    @GetMapping("/test-cascade-remove")
+    public void testCascadeRemove() {
+        departmentService.testCascadeRemove();
     }
 
 

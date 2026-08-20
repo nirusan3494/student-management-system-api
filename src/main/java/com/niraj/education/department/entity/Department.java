@@ -27,7 +27,7 @@ public class Department {
 
     @OneToMany(
             mappedBy = "department",
-            cascade = CascadeType.PERSIST
+            cascade = CascadeType.REMOVE
     )
     private List<Student> students = new ArrayList<>();
 }
