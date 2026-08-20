@@ -136,20 +136,33 @@ public class StudentService {
 //
 //        System.out.println("After flush");
 //    }
-@Transactional
-public void testFlushRollback() {
+
+
+//@Transactional
+//public void testFlushRollback() {
+//
+//    Student student = studentRepository
+//            .findById(14L)
+//            .orElseThrow();
+//
+//    student.setName("Flush Rollback Test");
+//
+//    entityManager.flush();
+//
+//    System.out.println("UPDATE was flushed");
+//
+//    throw new RuntimeException("Testing rollback after flush");
+//}
+@Transactional(readOnly = true)
+public Student testLazy() {
 
     Student student = studentRepository
-            .findById(14L)
+            .findById(10L)
             .orElseThrow();
 
-    student.setName("Flush Rollback Test");
+    System.out.println("Student loaded");
 
-    entityManager.flush();
-
-    System.out.println("UPDATE was flushed");
-
-    throw new RuntimeException("Testing rollback after flush");
+    return student;
 }
 
 

@@ -46,16 +46,26 @@ public class StudentController {
 //public void testRemove() {
 //    studentService.testRemove();
 //}
-
+//
 //    @GetMapping("/test-flush")
 //    public void testFlush() {
 //        studentService.testFlush();
 //    }
 
-@GetMapping("/test-flush-rollback")
-public void testFlushRollback() {
-    studentService.testFlushRollback();
-}
+//@GetMapping("/test-flush-rollback")
+//public void testFlushRollback() {
+//    studentService.testFlushRollback();
+//}
+
+    @GetMapping("/test-lazy")
+    public String testLazy() {
+
+        Student student = studentService.testLazy();
+
+        return student.getDepartment().getName();
+    }
+
+
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(
             @RequestBody @Valid StudentRequestDto requestDTO){
