@@ -26,11 +26,15 @@ public class StudentController {
     }
 
 
+//    @GetMapping("/test-dirty")
+//    public void testDirtyChecking() {
+//        studentService.testDirtyChecking();
+//    }
 
 
-    @GetMapping("/test-dirty")
-    public void testDirtyChecking() {
-        studentService.testDirtyChecking();
+    @GetMapping("/test-detached")
+    public void testDetached() {
+        studentService.testDetached();
     }
 
 

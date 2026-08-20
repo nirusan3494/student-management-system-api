@@ -11,6 +11,8 @@ import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Service
 public class StudentService {
@@ -30,21 +33,45 @@ public class StudentService {
     private final DepartmentRepository departmentRepository;
 
 
+//    @Transactional
+//    public void testDirtyChecking() {
+//
+//        Student student = studentRepository
+//                .findById(2L)
+//                .orElseThrow();
+//
+//        student.setName("Dirty Checking Test");
+//    }
+
+
+
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Transactional
+    public void testDetached() {
+
+        Student student = studentRepository
+                .findById(15L)
+                .orElseThrow();
+
+        System.out.println(
+                "Before detach: " +
+                        entityManager.contains(student)
+        );
+
+        entityManager.detach(student);
+
+        System.out.println(
+                "After detach: " +
+                        entityManager.contains(student)
+        );
+
+        student.setName("Detached Test");
+    }
 
 
 
     @Transactional
-    public void testDirtyChecking() {
-
-        Student student = studentRepository
-                .findById(2L)
-                .orElseThrow();
-
-        student.setName("Dirty Checking Test");
-    }
-
-
-@Transactional
     public StudentResponseDto registerStudent(StudentRequestDto requestDto) {
 
         Student student = new Student(
