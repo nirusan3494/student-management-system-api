@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,20 @@ public class StudentService {
 
 
 
+
+
     @Transactional
+    public void testDirtyChecking() {
+
+        Student student = studentRepository
+                .findById(2L)
+                .orElseThrow();
+
+        student.setName("Dirty Checking Test");
+    }
+
+
+@Transactional
     public StudentResponseDto registerStudent(StudentRequestDto requestDto) {
 
         Student student = new Student(
@@ -54,17 +68,17 @@ public class StudentService {
         student.setDepartment(department);
 
         Student savedStudent = studentRepository.save(student);
-        throw new RuntimeException("Testing transaction rollback");
-//        return new StudentResponseDto(
-//                savedStudent.getId(),
-//                savedStudent.getName(),
-//                savedStudent.getEmail(),
-//                savedStudent.getDepartment().getId()
-//        );
+
+        return new StudentResponseDto(
+                savedStudent.getId(),
+                savedStudent.getName(),
+                savedStudent.getEmail(),
+                savedStudent.getDepartment().getId()
+        );
     }
 
 
-
+    @Transactional(readOnly = true)
     public Page<StudentResponseDto> getAllStudents(Pageable pageable) {
 
         Page<Student> students =

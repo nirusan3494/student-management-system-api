@@ -26,6 +26,14 @@ public class StudentController {
     }
 
 
+
+
+    @GetMapping("/test-dirty")
+    public void testDirtyChecking() {
+        studentService.testDirtyChecking();
+    }
+
+
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(
             @RequestBody @Valid StudentRequestDto requestDTO){
