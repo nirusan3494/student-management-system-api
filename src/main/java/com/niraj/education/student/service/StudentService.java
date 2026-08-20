@@ -44,29 +44,59 @@ public class StudentService {
 //    }
 
 
-
+//
     @PersistenceContext
     private EntityManager entityManager;
+//    @Transactional
+//    public void testDetached() {
+//
+//        Student student = studentRepository
+//                .findById(15L)
+//                .orElseThrow();
+//
+//        System.out.println(
+//                "Before detach: " +
+//                        entityManager.contains(student)
+//        );
+//
+//        entityManager.detach(student);
+//
+//        System.out.println(
+//                "After detach: " +
+//                        entityManager.contains(student)
+//        );
+//
+//        student.setName("Detached Test");
+//    }
+
     @Transactional
-    public void testDetached() {
+    public void testMerge() {
 
         Student student = studentRepository
                 .findById(15L)
                 .orElseThrow();
 
-        System.out.println(
-                "Before detach: " +
-                        entityManager.contains(student)
-        );
-
         entityManager.detach(student);
 
         System.out.println(
-                "After detach: " +
+                "Original managed? " +
                         entityManager.contains(student)
         );
 
-        student.setName("Detached Test");
+        student.setName("Merge Test");
+        //Hibernate takes the detached object's data and copies it into a managed entity
+        Student managedStudent =
+                entityManager.merge(student);
+
+        System.out.println(
+                "Original managed after merge? " +
+                        entityManager.contains(student)
+        );
+
+        System.out.println(
+                "Merged object managed? " +
+                        entityManager.contains(managedStudent)
+        );
     }
 
 

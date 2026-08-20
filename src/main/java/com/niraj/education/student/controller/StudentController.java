@@ -32,9 +32,14 @@ public class StudentController {
 //    }
 
 
-    @GetMapping("/test-detached")
-    public void testDetached() {
-        studentService.testDetached();
+//    @GetMapping("/test-detached")
+//    public void testDetached() {
+//        studentService.testDetached();
+//    }
+
+    @GetMapping("/test-merge")
+    public void testMerge() {
+        studentService.testMerge();
     }
 
 
