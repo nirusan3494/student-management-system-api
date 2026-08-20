@@ -33,6 +33,8 @@ public class StudentService {
     private final DepartmentRepository departmentRepository;
 
 
+    @PersistenceContext
+    private EntityManager entityManager;
 //    @Transactional
 //    public void testDirtyChecking() {
 //
@@ -45,8 +47,7 @@ public class StudentService {
 
 
 //
-    @PersistenceContext
-    private EntityManager entityManager;
+
 //    @Transactional
 //    public void testDetached() {
 //
@@ -120,21 +121,36 @@ public class StudentService {
 //        );
 //    }
 
-    @Transactional
-    public void testFlush() {
+//    @Transactional
+//    public void testFlush() {
+//
+//        Student student = studentRepository
+//                .findById(13L)
+//                .orElseThrow();
+//
+//        student.setName("Flush Test");
+//
+//        System.out.println("Before flush");
+//
+//        entityManager.flush();
+//
+//        System.out.println("After flush");
+//    }
+@Transactional
+public void testFlushRollback() {
 
-        Student student = studentRepository
-                .findById(13L)
-                .orElseThrow();
+    Student student = studentRepository
+            .findById(14L)
+            .orElseThrow();
 
-        student.setName("Flush Test");
+    student.setName("Flush Rollback Test");
 
-        System.out.println("Before flush");
+    entityManager.flush();
 
-        entityManager.flush();
+    System.out.println("UPDATE was flushed");
 
-        System.out.println("After flush");
-    }
+    throw new RuntimeException("Testing rollback after flush");
+}
 
 
 

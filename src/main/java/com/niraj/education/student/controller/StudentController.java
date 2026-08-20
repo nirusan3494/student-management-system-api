@@ -47,10 +47,15 @@ public class StudentController {
 //    studentService.testRemove();
 //}
 
-    @GetMapping("/test-flush")
-    public void testFlush() {
-        studentService.testFlush();
-    }
+//    @GetMapping("/test-flush")
+//    public void testFlush() {
+//        studentService.testFlush();
+//    }
+
+@GetMapping("/test-flush-rollback")
+public void testFlushRollback() {
+    studentService.testFlushRollback();
+}
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(
             @RequestBody @Valid StudentRequestDto requestDTO){
