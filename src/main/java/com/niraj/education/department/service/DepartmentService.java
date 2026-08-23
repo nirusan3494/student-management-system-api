@@ -8,6 +8,7 @@ import com.niraj.education.exception.DepartmentIDNotFoundException;
 import com.niraj.education.exception.StudentIDNotFoundException;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,21 +104,29 @@ public class DepartmentService {
 //
 //        studentRepository.save(student);
 //    }
+//
+//    @Transactional
+//    public void testRemoveStudentSynchronization() {
+//
+//        Department department = departmentRepository
+//                .findById(1L)
+//                .orElseThrow();
+//
+//        Student student = department.getStudents()
+//                .stream()
+//                .filter(s -> s.getEmail().equals("sync@test.com"))
+//                .findFirst()
+//                .orElseThrow();
+//
+//        department.removeStudent(student);
+//    }
 
-    @Transactional
-    public void testRemoveStudentSynchronization() {
+    @Transactional(readOnly = true)
+    public Department testEntityGraph(Long id) {
 
-        Department department = departmentRepository
-                .findById(1L)
+        return departmentRepository
+                .findWithStudentsById(id)
                 .orElseThrow();
-
-        Student student = department.getStudents()
-                .stream()
-                .filter(s -> s.getEmail().equals("sync@test.com"))
-                .findFirst()
-                .orElseThrow();
-
-        department.removeStudent(student);
     }
 
     public DepartmentResponseDto createDepartment(DepartmentRequestDto requestDto) {

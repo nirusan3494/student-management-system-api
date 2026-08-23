@@ -2,6 +2,7 @@ package com.niraj.education.department.controller;
 
 import com.niraj.education.department.dto.DepartmentRequestDto;
 import com.niraj.education.department.dto.DepartmentResponseDto;
+import com.niraj.education.department.entity.Department;
 import com.niraj.education.department.service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,12 +43,16 @@ private final DepartmentService departmentService;
 //    public void testAddStudentSynchronization() {
 //        departmentService.testAddStudentSynchronization();
 //    }
-
-
-    @DeleteMapping("/test-sync")
-    public void testRemoveStudentSynchronization() {
-        departmentService.testRemoveStudentSynchronization();
-    }
+//
+//
+//    @DeleteMapping("/test-sync")
+//    public void testRemoveStudentSynchronization() {
+//        departmentService.testRemoveStudentSynchronization();
+//    }
+@GetMapping("/test-entity-graph/{id}")
+public Department testEntityGraph(@PathVariable Long id) {
+    return departmentService.testEntityGraph(id);
+}
 
 
     @PostMapping
