@@ -25,6 +25,19 @@ public class Department {
         this.name = name;
     }
 
+
+
+    public void addStudent(Student student) {
+        students.add(student);
+        student.setDepartment(this);
+    }
+
+    public void removeStudent(Student student) {
+        students.remove(student);
+        student.setDepartment(null);
+    }
+
+
     @OneToMany(
             mappedBy = "department",
             orphanRemoval = true

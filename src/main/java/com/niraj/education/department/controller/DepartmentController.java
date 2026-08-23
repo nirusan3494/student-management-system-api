@@ -27,15 +27,20 @@ private final DepartmentService departmentService;
 //    public void testCascadeRemove() {
 //        departmentService.testCascadeRemove();
 //    }
+//
+//    @GetMapping("/create-orphan-test")
+//    public void createOrphanTest() {
+//        departmentService.createOrphanTest();
+//    }
+//
+//    @GetMapping("/test-orphan-removal")
+//    public void testOrphanRemoval() {
+//        departmentService.removeOrphanStudent();
+//    }
 
-    @GetMapping("/create-orphan-test")
-    public void createOrphanTest() {
-        departmentService.createOrphanTest();
-    }
-
-    @GetMapping("/test-orphan-removal")
-    public void testOrphanRemoval() {
-        departmentService.removeOrphanStudent();
+    @PostMapping("/test-sync")
+    public void testAddStudentSynchronization() {
+        departmentService.testAddStudentSynchronization();
     }
 
 

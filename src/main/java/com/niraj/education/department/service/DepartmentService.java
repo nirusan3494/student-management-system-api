@@ -7,6 +7,7 @@ import com.niraj.education.department.repository.DepartmentRepository;
 import com.niraj.education.exception.DepartmentIDNotFoundException;
 import com.niraj.education.exception.StudentIDNotFoundException;
 import com.niraj.education.student.entity.Student;
+import com.niraj.education.student.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
+    private final StudentRepository studentRepository;
 
 //
 //    @Transactional
@@ -48,41 +50,59 @@ public class DepartmentService {
 //    }
 //
 
+//
+//    @Transactional
+//    public void createOrphanTest() {
+//
+//        Department department = new Department();
+//        department.setName("Orphan Test");
+//
+//        Student student = new Student(
+//                "Orphan Student",
+//                "orphan@test.com"
+//        );
+//
+//        student.setDepartment(department);
+//        department.getStudents().add(student);
+//
+//        departmentRepository.save(department);
+//    }
+//
+//
+//    @Transactional
+//    public void removeOrphanStudent() {
+//
+//        Department department = departmentRepository
+//                .findById(8L)
+//                .orElseThrow();
+//
+//        Student student = department.getStudents()
+//                .stream()
+//                .filter(s -> s.getEmail().equals("orphan@test.com"))
+//                .findFirst()
+//                .orElseThrow();
+//
+//        department.getStudents().remove(student);
+//    }
+//
+
 
     @Transactional
-    public void createOrphanTest() {
-
-        Department department = new Department();
-        department.setName("Orphan Test");
-
-        Student student = new Student(
-                "Orphan Student",
-                "orphan@test.com"
-        );
-
-        student.setDepartment(department);
-        department.getStudents().add(student);
-
-        departmentRepository.save(department);
-    }
-
-
-    @Transactional
-    public void removeOrphanStudent() {
+    public void testAddStudentSynchronization() {
 
         Department department = departmentRepository
-                .findById(8L)
+                .findById(1L)
                 .orElseThrow();
 
-        Student student = department.getStudents()
-                .stream()
-                .filter(s -> s.getEmail().equals("orphan@test.com"))
-                .findFirst()
-                .orElseThrow();
+        Student student = new Student(
+                "Sync Test",
+                "sync@test.com"
+        );
 
-        department.getStudents().remove(student);
+        department.addStudent(student);
+
+        studentRepository.save(student);
     }
-
 
     public DepartmentResponseDto createDepartment(DepartmentRequestDto requestDto) {
      Department department = new Department();
