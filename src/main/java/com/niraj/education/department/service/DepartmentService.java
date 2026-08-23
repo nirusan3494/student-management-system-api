@@ -94,10 +94,11 @@ public class DepartmentService {
                 .findById(1L)
                 .orElseThrow();
 
-        Student student = new Student(
-                "Sync Test",
-                "sync@test.com"
-        );
+        Student student = department.getStudents()
+                .stream()
+                .filter(s -> s.getEmail().equals("sync@test.com"))
+                .findFirst()
+                .orElseThrow();
 
         department.addStudent(student);
 
