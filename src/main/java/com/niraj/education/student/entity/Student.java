@@ -3,11 +3,21 @@ import com.niraj.education.department.entity.Department;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(
+        indexes = {
+                @Index(
+                        name = "idx_student_department",
+                        columnList = "department_id"
+                )
+        }
+)
+
 public class Student {
 
     @Getter
@@ -24,6 +34,7 @@ public class Student {
     @Getter
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
     @Setter
