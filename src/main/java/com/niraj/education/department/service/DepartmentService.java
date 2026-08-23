@@ -85,10 +85,27 @@ public class DepartmentService {
 //        department.getStudents().remove(student);
 //    }
 //
-
+//
+//
+//    @Transactional
+//    public void testAddStudentSynchronization() {
+//
+//        Department department = departmentRepository
+//                .findById(1L)
+//                .orElseThrow();
+//
+//        Student student = new Student(
+//                "Sync Test",
+//                "sync@test.com"
+//        );
+//
+//        department.addStudent(student);
+//
+//        studentRepository.save(student);
+//    }
 
     @Transactional
-    public void testAddStudentSynchronization() {
+    public void testRemoveStudentSynchronization() {
 
         Department department = departmentRepository
                 .findById(1L)
@@ -100,9 +117,7 @@ public class DepartmentService {
                 .findFirst()
                 .orElseThrow();
 
-        department.addStudent(student);
-
-        studentRepository.save(student);
+        department.removeStudent(student);
     }
 
     public DepartmentResponseDto createDepartment(DepartmentRequestDto requestDto) {

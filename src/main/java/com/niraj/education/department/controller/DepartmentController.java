@@ -37,12 +37,17 @@ private final DepartmentService departmentService;
 //    public void testOrphanRemoval() {
 //        departmentService.removeOrphanStudent();
 //    }
+//
+//    @PostMapping("/test-sync")
+//    public void testAddStudentSynchronization() {
+//        departmentService.testAddStudentSynchronization();
+//    }
 
-    @PostMapping("/test-sync")
-    public void testAddStudentSynchronization() {
-        departmentService.testAddStudentSynchronization();
+
+    @DeleteMapping("/test-sync")
+    public void testRemoveStudentSynchronization() {
+        departmentService.testRemoveStudentSynchronization();
     }
-
 
 
     @PostMapping
