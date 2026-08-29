@@ -13,6 +13,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+//    @Override
+//    public UserDetails loadUserByUsername(String username) {
+//
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() ->
+//                        new UsernameNotFoundException("User not found"));
+//
+//        return org.springframework.security.core.userdetails.User
+//                .withUsername(user.getUsername())
+//                .password(user.getPassword())
+//                .authorities("ROLE_USER")
+//                .build();
+//   }
+
     @Override
     public UserDetails loadUserByUsername(String username) {
 
@@ -20,10 +34,16 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 
+        String role = "ROLE_" + user.getRole();
+
+        System.out.println("USERNAME: " + user.getUsername());
+        System.out.println("DB ROLE: " + user.getRole());
+        System.out.println("SPRING AUTHORITY: " + role);
+
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities("USER")
+                .authorities(role)
                 .build();
     }
 }
