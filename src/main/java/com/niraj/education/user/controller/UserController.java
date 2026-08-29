@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.niraj.education.user.security.JWTService;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,6 +21,7 @@ public class UserController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity<User>rregister(@RequestBody User user){
@@ -34,6 +36,9 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(), request.getPassword())
         );
-        return ResponseEntity.ok("Login successful");
+    String token=jwtService.generateToken(
+            authentication.getName()
+    );
+            return ResponseEntity.ok(token);
     }
 }
