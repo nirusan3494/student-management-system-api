@@ -1,6 +1,7 @@
 package com.niraj.education.exception;
 
 import com.niraj.education.dto.ApiError;
+import com.niraj.education.user.exception.RefreshTokenException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -97,6 +99,25 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(apiError);
+    }
+
+
+    @ExceptionHandler(RefreshTokenException.class)
+    public ResponseEntity<ApiError> handleRefreshTokenException(
+            RefreshTokenException ex,
+            HttpServletRequest request) {
+
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
                 .body(apiError);
     }
 }
