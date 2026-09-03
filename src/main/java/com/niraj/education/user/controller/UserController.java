@@ -93,4 +93,19 @@ public class UserController {
                 )
         );
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(
+            @RequestParam String refreshToken
+    ){
+        RefreshToken token=refreshTokenRepository
+                .findByToken(refreshToken)
+                .orElseThrow(()->
+                        new RefreshTokenException("Refresh token not found"));
+        refreshTokenRepository.delete(token);
+
+        return ResponseEntity.ok(
+                Map.of("message","Logout successfully!")
+        );
+    }
 }
