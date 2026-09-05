@@ -13,6 +13,7 @@ import com.niraj.education.student.repository.StudentRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -169,6 +170,7 @@ public class StudentService {
 
 
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public StudentResponseDto registerStudent(StudentRequestDto requestDto) {
 
         Student student = new Student(
@@ -203,6 +205,7 @@ public class StudentService {
 
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<StudentResponseDto> getAllStudents(Pageable pageable) {
 
         Page<Student> students =
@@ -229,6 +232,7 @@ public class StudentService {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteStudentById(Long id){
         studentRepository.findById(id)
                 .orElseThrow(
@@ -241,6 +245,7 @@ public class StudentService {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     public Student updateStudentById(Long id, Student student){
         Student existingStudent = studentRepository.findById(id)
                 .orElseThrow(
@@ -346,6 +351,7 @@ public class StudentService {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<StudentResponseDto>getStudentsByIdGreaterThan(Long id){
         List<Student> students=studentRepository.findByIdGreaterThan(id);
         List<StudentResponseDto>studentResponseDtos=new ArrayList<>();
@@ -392,6 +398,7 @@ public class StudentService {
         return studentResponseDtos;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<StudentResponseDto> getStudentsOrderByIdAsc() {
 
         List<Student> students =
@@ -414,6 +421,7 @@ public class StudentService {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<StudentResponseDto> getStudentsOrderByIdDesc() {
 
         List<Student> students =
