@@ -1,5 +1,7 @@
 package com.niraj.education.config;
 
+import com.niraj.education.user.security.CustomAccessDeniedHandler;
+import com.niraj.education.user.security.CustomAuthenticationEntryPoint;
 import com.niraj.education.user.security.JwtAuthenticationFilter;
 import com.niraj.education.user.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -47,6 +51,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
+
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
 
                 .authorizeHttpRequests(auth -> auth
 

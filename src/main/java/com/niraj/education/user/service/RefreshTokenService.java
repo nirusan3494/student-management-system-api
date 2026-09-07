@@ -6,6 +6,8 @@ import com.niraj.education.user.exception.RefreshTokenException;
 import com.niraj.education.user.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -21,7 +23,7 @@ public class RefreshTokenService {
         RefreshToken refreshToken = new RefreshToken();
 
         refreshToken.setUser(user);
-        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setToken(generateRefreshToken());
         refreshToken.setExpiryDate(
                 Instant.now().plusSeconds(7 * 24 * 60 * 60)
         );
@@ -38,5 +40,15 @@ public class RefreshTokenService {
             throw new RefreshTokenException("Refresh token expired");
         }
         return token;
+    }
+    private String generateRefreshToken() {
+
+        byte[] randomBytes = new byte[32];
+
+        new SecureRandom().nextBytes(randomBytes);
+
+        return Base64.getUrlEncoder()
+                .withoutPadding()
+                .encodeToString(randomBytes);
     }
 }
