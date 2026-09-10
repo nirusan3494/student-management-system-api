@@ -5,10 +5,7 @@ import com.niraj.education.department.dto.DepartmentResponseDto;
 import com.niraj.education.department.entity.Department;
 import com.niraj.education.department.repository.DepartmentRepository;
 import com.niraj.education.exception.DepartmentIDNotFoundException;
-import com.niraj.education.exception.StudentIDNotFoundException;
-import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,8 +136,6 @@ public class DepartmentService {
      return responseDto;
     }
 
-
-
     public List<DepartmentResponseDto> getAllDepartments(){
         List<Department>departments=departmentRepository.findAll();
         List<DepartmentResponseDto> response=new ArrayList<>();
@@ -154,9 +149,6 @@ public class DepartmentService {
         return response;
     }
 
-
-
-
     public DepartmentResponseDto getDepartmentsById(Long id) {
     Department department=departmentRepository
             .findById(id)
@@ -169,8 +161,6 @@ public class DepartmentService {
 
     return dto;
     }
-
-
 
     public DepartmentResponseDto updateDepartment(Long id,DepartmentRequestDto requestDto) {
         Department department=departmentRepository
@@ -189,8 +179,6 @@ public class DepartmentService {
         return responseDto;
     }
 
-
-
     public void deleteDepartment(Long id){
         Department department=departmentRepository
                 .findById(id)
@@ -201,5 +189,4 @@ public class DepartmentService {
                 );
         departmentRepository.delete(department);
     }
-
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-import static io.jsonwebtoken.security.Keys.hmacShaKeyFor;
 
 @Service
 public class JWTService {

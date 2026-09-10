@@ -3,10 +3,8 @@ package com.niraj.education.student.controller;
 import com.niraj.education.student.dto.StudentRequestDto;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
-import com.niraj.education.student.repository.StudentRepository;
 import com.niraj.education.student.service.StudentService;
 import jakarta.validation.Valid;
-import org.hibernate.internal.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -64,9 +62,6 @@ public class StudentController {
 //
 //        return student.getDepartment().getName();
 //    }
-
-
-
 
     @PostMapping
     public ResponseEntity<StudentResponseDto> addStudent(

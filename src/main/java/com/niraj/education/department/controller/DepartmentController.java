@@ -49,6 +49,7 @@ private final DepartmentService departmentService;
 //    public void testRemoveStudentSynchronization() {
 //        departmentService.testRemoveStudentSynchronization();
 //    }
+
 @GetMapping("/test-entity-graph/{id}")
 public Department testEntityGraph(@PathVariable Long id) {
     return departmentService.testEntityGraph(id);

@@ -10,7 +10,6 @@ import com.niraj.education.student.dto.StudentRequestDto;
 import com.niraj.education.student.dto.StudentResponseDto;
 import com.niraj.education.student.entity.Student;
 import com.niraj.education.student.repository.StudentRepository;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,9 +164,6 @@ public class StudentService {
 //
 //    return student;
 //}
-
-
-
 
     @Transactional
     @PreAuthorize("hasRole('ADMIN')")
